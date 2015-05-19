@@ -60,8 +60,13 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
 
     private CameraOrientationListener orientationListener;
 
-    public static Fragment newInstance() {
-        return new CameraFragment();
+    public static Fragment newInstance(int requestedWidth, int requestedHeight) {
+        CameraFragment frag =  new CameraFragment();
+        Bundle args = new Bundle();
+        args.putInt(PhotoActivity.EXTRA_WIDTH, requestedWidth);
+        args.putInt(PhotoActivity.EXTRA_HEIGHT, requestedHeight);
+        frag.setArguments(args);
+        return frag;
     }
 
     public CameraFragment() {}
@@ -75,7 +80,16 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle args  = getArguments();
+        if (args != null) {
+            requestedWidth = args.getInt(PhotoActivity.EXTRA_WIDTH);
+            requestedHeight = args.getInt(PhotoActivity.EXTRA_HEIGHT);
+        }
+
+
+
         return inflater.inflate(R.layout.fragment_camera, container, false);
+
     }
 
     @Override
@@ -108,8 +122,6 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
                 previewWidth = previewView.getWidth();
                 previewHeight = previewView.getHeight();
 
-                requestedWidth = 600;
-                requestedHeight = 600;
                 float aspect = (float) requestedHeight / (float) requestedWidth;
 
                 coverWidth = (previewHeight / aspect);

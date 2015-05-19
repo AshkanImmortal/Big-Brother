@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void grabPhoto(View view) {
-        startActivityForResult(new Intent(MainActivity.this, PhotoActivity.class), GRAB_PHOTO);
+        Intent i = new Intent(MainActivity.this, PhotoActivity.class);
+        i.putExtra(PhotoActivity.EXTRA_WIDTH, 600);
+        i.putExtra(PhotoActivity.EXTRA_HEIGHT, 500);
+        startActivityForResult(i, GRAB_PHOTO);
     }
 }

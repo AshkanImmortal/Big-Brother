@@ -25,6 +25,16 @@ import java.io.File;
 
 public class PhotoActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener {
 
+    /**
+     * Integer extra for the width of image needed. if null will be default size.
+     */
+    public static final String EXTRA_WIDTH = "com.aetava.bigbrother.extra.width";
+
+    /**
+     * Integer extra for the height of image needed. if null will be default size.
+     */
+    public static final String EXTRA_HEIGHT = "com.aetava.bigbrother.extra.height";
+
     public static final String TAG = PhotoActivity.class.getSimpleName();
 
     public ImageInternalFetcher mImageFetcher;
@@ -32,6 +42,8 @@ public class PhotoActivity extends AppCompatActivity implements SlidingUpPanelLa
     private GalleryAdapter galleryAdapter;
     private View mTransparentView;
     private View mSpaceView;
+    private int requestedWidth;
+    private int requestedHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +90,7 @@ public class PhotoActivity extends AppCompatActivity implements SlidingUpPanelLa
 
         galleryGridView.addHeaderView(mTransparentHeaderView);
 
-        mImageFetcher = new ImageInternalFetcher(this, 1200);
+        mImageFetcher = new ImageInternalFetcher(this, 1000);
 
         Cursor imageCursor = null;
         try {
@@ -104,20 +116,24 @@ public class PhotoActivity extends AppCompatActivity implements SlidingUpPanelLa
         galleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //cropPhoto(galleryAdapter.getItem(i).uri);
-                String path = "file://" + galleryAdapter.getItem(i).uri.toString();
 
+                //TODO: fix this
+                String path = "file://" + galleryAdapter.getItem(i - 3).uri.toString();
                 Uri uri = Uri.parse(path);
                 cropPhoto(uri);
-                galleryAdapter.notifyDataSetChanged();
             }
         });
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            requestedWidth = extras.getInt(EXTRA_WIDTH);
+            requestedHeight = extras.getInt(EXTRA_HEIGHT);
+        }
 
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.camera_container, CameraFragment.newInstance());
-            //fragmentTransaction.replace(R.id.gallery_container, galleryFragment);
+            fragmentTransaction.replace(R.id.camera_container, CameraFragment.newInstance(requestedWidth, requestedHeight));
             fragmentTransaction.commit();
         }
     }
