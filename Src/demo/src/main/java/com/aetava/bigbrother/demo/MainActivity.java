@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == GRAB_PHOTO) {
             Uri photoUri = data.getData();
             // Get the bitmap in according to the width of the device
-            Bitmap bitmap = ImageUtility.decodeSampledBitmapFromPath(photoUri.getPath(), 2000, 2000);
+            Bitmap bitmap = ImageUtility.decodeSampledBitmapFromPath(photoUri.getPath(), 1000, 1000);
             ((ImageView) findViewById(R.id.taken_image)).setImageBitmap(bitmap);
         }
         super.onActivityResult(requestCode, resultCode, data);

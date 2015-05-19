@@ -57,8 +57,10 @@ public class PhotoActivity extends AppCompatActivity implements SlidingUpPanelLa
 
         HeaderGridView galleryGridView = (HeaderGridView) findViewById(R.id.list);
         galleryGridView.setOverScrollMode(GridView.OVER_SCROLL_NEVER);
+
         SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         slidingUpPanelLayout.setEnableDragViewTouchEvents(true);
+
         galleryAdapter = new GalleryAdapter(this);
 
         int gapHeight = getResources().getDimensionPixelSize(R.dimen.map_height);
@@ -156,12 +158,12 @@ public class PhotoActivity extends AppCompatActivity implements SlidingUpPanelLa
         finish();
     }
 
-    private void collapseMap() {
+    private void collapseCamera() {
         mSpaceView.setVisibility(View.VISIBLE);
         mTransparentView.setVisibility(View.GONE);
     }
 
-    private void expandMap() {
+    private void expandCamera() {
         mSpaceView.setVisibility(View.GONE);
         mTransparentView.setVisibility(View.INVISIBLE);
     }
@@ -173,12 +175,12 @@ public class PhotoActivity extends AppCompatActivity implements SlidingUpPanelLa
 
     @Override
     public void onPanelCollapsed(View view) {
-        expandMap();
+        expandCamera();
     }
 
     @Override
     public void onPanelExpanded(View view) {
-        collapseMap();
+        collapseCamera();
     }
 
     @Override
