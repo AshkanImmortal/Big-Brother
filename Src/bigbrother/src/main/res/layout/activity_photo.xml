@@ -1,0 +1,45 @@
+<com.aetava.bigbrother.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:gravity="bottom"
+    app:shadowHeight="0dp"
+    app:paralaxOffset="@dimen/paralax_offset"
+    tools:context="com.aetava.bigbrother.PhotoActivity">
+
+    <FrameLayout
+        android:id="@+id/camera_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" />
+
+    <RelativeLayout
+        android:id="@+id/slidingContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/transparentView"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/map_height"
+            android:layout_alignParentTop="true"/>
+
+        <com.aetava.bigbrother.HeaderGridView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:drawSelectorOnTop="true"
+            android:horizontalSpacing="3dp"
+            android:numColumns="3"
+            android:verticalSpacing="3dp"
+            android:cacheColorHint="@android:color/white"
+            android:background="@android:color/transparent"
+            android:layout_below="@id/transparentView"
+            android:smoothScrollbar="false"/>
+    </RelativeLayout>
+</com.aetava.bigbrother.SlidingUpPanelLayout>
